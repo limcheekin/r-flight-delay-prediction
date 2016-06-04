@@ -30,6 +30,7 @@ filteredData$X <- NULL
 ```
 ### 7. Remove redundant correlated columns (same information in a different format such as ID and value associated with ID) which add little infor and can cause algorithms to get confused
   1. Check correlation
+  
    ```R
    cor(filteredData[c('ORIGIN_AIRPORT_ID', 'ORIGIN_AIRPORT_SEQ_ID')])
    cor(filteredData[c('DEST_AIRPORT_ID', 'DEST_AIRPORT_SEQ_ID')])
