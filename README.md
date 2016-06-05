@@ -17,35 +17,42 @@ Next, switched to Random Forest to improve prediction result.
 
 ## Train model
  * Training the model using caret package
+
    ```R
    install.packages('caret')
    library(caret)
    ```
  * Set the seed so that the random number generated in the same sequence to yield the same training results
+
    ```R
    set.seed(12345)
    ```
  * Retrieve feature columns only
+
    ```R
    featureColumns <- c('ARR_DEL15', 'DAY_OF_WEEK', 'CARRIER', 'DEST', 'ORIGIN', 'DEP_TIME_BLK')
    onTimeDataFiltered <- onTimeData[,featureColumns]
    ```
  * Retrieve 70% of data for training
+
    ```R
    trainRows <- createDataPartition(onTimeDataFiltered$ARR_DEL15, p=0.7, list=FALSE)
    head(trainRows, 10)
    trainData <- onTimeDataFiltered[trainRows,]
    ```
  * Retrieve the remaining 30% of data for testing
+
    ```R
    testData <- onTimeDataFiltered[-trainRows,]
    ```
  * Simple verification
+
    ```R
    nrow(trainData)/(nrow(trainData) + nrow(testData))
    nrow(testData)/(nrow(trainData) + nrow(testData))
    ```
  * Train the model with train data
+ 
    ```R
    logisticRegModel <- train(ARR_DEL15 ~ ., data=trainData, method="glm", family="binomial")
    ```
